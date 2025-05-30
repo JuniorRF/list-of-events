@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import '../styles.css';
 
 type EventFormData = {
   title: string;
@@ -13,8 +14,13 @@ type Props = {
 
 const EventForm: React.FC<Props> = ({ onSubmit, initialData }) => {
   const [title, setTitle] = useState(initialData.title);
-  const [date, setDate] = useState(initialData.date || '');
+  const [date, setDate] = useState(initialData.date);
   const [error, setError] = useState('');
+  
+  useEffect(() => {
+    setTitle(initialData.title);
+    setDate(initialData.date);
+  }, [initialData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +37,7 @@ const EventForm: React.FC<Props> = ({ onSubmit, initialData }) => {
   return (
     <form onSubmit={handleSubmit} className="event-form">
       <h2>{initialData.id ? 'Редактировать мероприятие' : 'Добавить мероприятие'}</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error  && <p className="error">{error}</p>}
       <input
         type="text"
         placeholder="Название мероприятия"

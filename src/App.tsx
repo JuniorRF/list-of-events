@@ -23,6 +23,7 @@ const App: React.FC = () => {
   };
 
   const updateEvent = (updatedEvent: EventFormData) => {
+    console.log(updatedEvent);
     if (!updatedEvent.id) return;
     setEvents(
       events.map((event) =>
